@@ -1,82 +1,17 @@
-
-// subtipagem/herança
-class Pessoa {
-  String nome;
-}
-
-class PessoaFisica extends Pessoa {
-  String cpf;
-}
-
-class PessoaJuridica extends Pessoa {
-  String cnpj;
-}
-// herança do estado,
-// herança do comportamento =>
-//   polimorfismo por subtipagem (sobrescrita/overwrite)
-
-
 public class App {
   public static void main(String[] args) {
-    
-    Frete qualquer = new Frete() { // classe anônima
-      @Override
-      public double calcularValor() {
-        return 0.0;
-      }
-    };
+    // Padrão de Projeto: Design Pattern: BUILDER
+    // Dimensao.nova().largura(50).profundidade(12).altura(34).build();
+    // Frete f1 = new Frete(10, 100, 50, 50, 50, 12, 2);
 
-    Frete pac = new Pac(10);
+    Dimensao dimensao = new Dimensao(50, 50, 50);
+    // Frete f1 = new FretePadrao(10);
+    Frete f1 = new FreteSedex(10, dimensao);
 
-    Frete sedex = new Sedex(10, 10, 10);
+    System.out.println(f1.calcularValor());
 
-    Frete expresso = new Expresso(12); // hora
-
-    System.out.println(qualquer.calcularValor()); // 
-    System.out.println(pac.calcularValor()); // ?
-    //System.out.println(sedex.calcularValor()); // ?
-
-    Pedido p = new Pedido("Teclado RK64", 500.0, qualquer);
-    System.out.println(p.getValorTotal());
-    
-    p.setFrete(pac);
-    System.out.println(p.getValorTotal());
-    
-    p.setFrete(sedex);
-    System.out.println(p.getValorTotal());
-
-    p.setFrete(expresso);
-    System.out.println(p.getValorTotal());
+    Pedido p1 = new Pedido("Teste", 100.0, f1);
+    System.out.println(p1.getValorTotal());
 
   }
 }
-
-
-
-
-// Polimorfismo ad-hoc (sobrecarga / overload)
-// Texto.preencher("asdsa", "-");
-// Texto.preencher("asdsa", "-", 10);
-class Texto {
-
-  String preencher(String t, String c) {
-    return null;
-  }
-
-  String preencher(String t, String c, int qtd) {
-    return null;
-  }
-}
-
-/*
- * Single Reponsibility Principle (Princípio da Responsabilidade Única)
- * Open/Close Principle (Princípio Aberto/Fechado)
- * Liskov Substitution Principle (Princípio da Substituição de Liskov)
- * Interface Segregation Principle (Princípio da Segregação da Interface)
- * Dependency Inversion Principle (Princípio da Inversão da Dependência)
- * 
- * Todo sistema deve estar aberto à extensão, mas fechado à modificação.
- * 
- */
-
-

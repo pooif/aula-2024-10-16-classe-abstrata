@@ -1,8 +1,8 @@
 public class Pedido {
   
   private String produto;
-  private Double valor; // BigDecimal
-  private Frete frete;
+  private Double valor;
+  private Frete frete; // agnóstico de Frete
 
   public Pedido(String produto, Double valor, Frete frete) {
     this.produto = produto;
@@ -22,13 +22,8 @@ public class Pedido {
     return frete;
   }
 
-  public void setFrete(Frete frete) {
-    this.frete = frete;
-  }
-
   public Double getValorTotal() {
-    // polimórfico
-    // getFrete().calcularValorTotal()
-    return this.getValor() + this.getFrete().calcularValor();
+                  // chamada polimórfica ao calculaValor
+    return valor + frete.calcularValor();
   }
 }
